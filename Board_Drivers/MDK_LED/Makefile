@@ -10,15 +10,18 @@ $(target):$(objs) $(objc)
 	$(ARM_LD) -T imx6ul.lds  -o $(patsubst %.bin,%.elf,$(target)) 
 	$(ARM_COPY) -O binary -S -g $(patsubst %.bin,%.elf,$(target)) $(target)
 	arm-linux-gnueabihf-objdump -D $(patsubst %.bin,%.elf,$(target)) > $(patsubst %.bin,%.dis,$(target))
-%.o:%.c
-	$(ARM_GCC) -g -Wall -nostdlib -c $^ -o $@
-%.o:%.s
-	$(ARM_GCC) -g -Wall -nostdlib -c $^ -o $@
 
+%.o:%.s
+	$(CC) -Wall -nostdlib -c -O2 -o $@ $<
+	
+%.o:%.S
+	$(CC) -Wall -nostdlib -c -O2 -o $@ $<
+	
+%.o:%.c
+	$(CC) -Wall -nostdlib -c -O2 -o $@ $<
+	
 download:$(target)
 	chmod 777 imxdownload
 	./imxdownload $(target) /dev/sdb
-
 clean:
-	rm -rf *.o *.bin *.elf *.dis
-
+	rm -rf *.o $(NAME).bin $(NAME).elf $(NAME).dis
