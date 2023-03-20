@@ -11,9 +11,9 @@ $(target):$(objs) $(objc)
 	$(ARM_COPY) -O binary -S -g $(patsubst %.bin,%.elf,$(target)) $(target)
 	arm-linux-gnueabihf-objdump -D $(patsubst %.bin,%.elf,$(target)) > $(patsubst %.bin,%.dis,$(target))
 %.o:%.c
-	$(ARM_GCC) -g -c $^ -o $@
+	$(ARM_GCC) -g -Wall -nostdlib -c $^ -o $@
 %.o:%.s
-	$(ARM_GCC) -g -c $^ -o $@
+	$(ARM_GCC) -g -Wall -nostdlib -c $^ -o $@
 
 download:$(target)
 	chmod 777 imxdownload
