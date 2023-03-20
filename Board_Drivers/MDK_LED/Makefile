@@ -11,17 +11,13 @@ $(target):$(objs) $(objc)
 	$(ARM_COPY) -O binary -S -g $(patsubst %.bin,%.elf,$(target)) $(target)
 	arm-linux-gnueabihf-objdump -D $(patsubst %.bin,%.elf,$(target)) > $(patsubst %.bin,%.dis,$(target))
 
-%.o:%.s
-	$(CC) -Wall -nostdlib -c -O2 -o $@ $<
-	
-%.o:%.S
-	$(CC) -Wall -nostdlib -c -O2 -o $@ $<
-	
+
 %.o:%.c
-	$(CC) -Wall -nostdlib -c -O2 -o $@ $<
-	
+	$(ARM_GCC) -Wall -nostdlib -g -c $^ -o $@
+%.o:%.s
+	$(ARM_GCC) -Wall -nostdlib -g -c $^ -o $@
 download:$(target)
 	chmod 777 imxdownload
 	./imxdownload $(target) /dev/sdb
 clean:
-	rm -rf *.o $(NAME).bin $(NAME).elf $(NAME).dis
+	rm -rf *.o *.bin *.elf *.dis
