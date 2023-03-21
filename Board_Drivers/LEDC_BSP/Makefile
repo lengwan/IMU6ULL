@@ -5,17 +5,17 @@ TARGET :=BSP_LED
 ARM_GCC :=$(USE_COMPILE)gcc #确定值
 ARM_LD :=$(USE_COMPILE)ld #链接
 ARM_COPY :=$(USE_COMPILE)objcopy #换文件格式
-ARM_DUMP :=$(USE_COMPILE)dump #反向汇编编译
+ARM_DUMP :=$(USE_COMPILE)objdump #反向汇编编译
 
 #编译头文件地址 -I
-INC_PATH := Bsp/CLOCK   \
+INC_PATH := Bsp/CLCOK   \
 			Bsp/DELAY   \
 			Bsp/LED     \
 			SDK_LIB/inc \
 			SDK_LIB     \
 			User
 #资源文件路径
-SRC_PATH := Bsp/CLOCK   \
+SRC_PATH := Bsp/CLCOK   \
 			Bsp/DELAY   \
 			Bsp/LED     \
 			SDK_LIB/src \
@@ -36,6 +36,8 @@ COBJ :=$(patsubst %.c,$(OUT_PATH)/%.o,$(CFILENDIR))
 SOBJ :=$(patsubst %.s,$(OUT_PATH)/%.o,$(SFILENDIR))
 OBJS :=$(COBJ) $(SOBJ)
 
+#依赖文件搜索路径
+VPATH :=$(SRC_PATH)
 .PHONY: clean
 
 $(TARGET).bin:$(OBJS)#需要.o
@@ -47,11 +49,13 @@ $(TARGET).bin:$(OBJS)#需要.o
 
 
 $(COBJ):$(OUT_PATH)/%.o:%.c
-	$(ARM_GCC) -Wall -nostdlib  -c -O2 ../$(INCLUDE) $^ -o $@ 
+	$(ARM_GCC) -Wall -nostdlib  -c -O2 $(INCLUDE) $^ -o $@ 
 $(SOBJ):$(OUT_PATH)/%.o:%.s
-	$(ARM_GCC) -Wall -nostdlib  -c -O2 ../$(INCLUDE) $^ -o $@
-download:$(target)
+	$(ARM_GCC) -Wall -nostdlib  -c -O2 $(INCLUDE) $^ -o $@
+
+
+download:$(TARGET).bin
 	chmod 777 imxdownload
-	./imxdownload $(target) /dev/sdb
+	./imxdownload $(OUT_PATH)/$(TARGET).bin /dev/sdb
 clean:
-	rm -rf *.o *.bin *.elf *.dis
+	rm -rf $(OUT_PATH)/*.o $(OUT_PATH)/*.bin $(OUT_PATH)/*.elf $(OUT_PATH)/*.dis

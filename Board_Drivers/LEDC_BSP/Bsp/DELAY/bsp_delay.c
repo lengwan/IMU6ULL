@@ -5,7 +5,7 @@ void delay_us(int i)
 	int j,k=0;
 	for(j=0;j<i;j++)
 	{
-		for(k=0;k<200;k++)
+		for(k=0;k<20;k++)
 		{
 
 		}

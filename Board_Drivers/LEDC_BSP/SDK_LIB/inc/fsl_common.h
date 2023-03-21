@@ -11,8 +11,8 @@ Copyright © zuozhongkai Co., Ltd. 1998-2019. All rights reserved.
 
 #ifndef _FSL_COMMON_H_
 #define _FSL_COMMON_H_
-
 #include "cc.h"             /* cc.h为自行添加的文件 */
+#include "MCIMX6Y2.h"
 /*!
  * @addtogroup ksdk_common
  * @{

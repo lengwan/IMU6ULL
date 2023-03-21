@@ -8,11 +8,12 @@ int main()
 	Led_Gpio_Init();
 	while(1)
 	{
-		//开灯
-		LED_ON;
-		delay_ms(300);
-		LED_OFF;
-		delay_ms(300);
+		// LED_OFF;
+		// delay_ms(10);
+		// //开灯
+		// LED_ON;
+		// delay_ms(10);
+
 	}
 	
 }

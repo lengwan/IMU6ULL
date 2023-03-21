@@ -68,6 +68,7 @@
 
 #ifndef _MCIMX6Y2_H_
 #define _MCIMX6Y2_H_                             /**< Symbol preventing repeated inclusion */
+#include "cc.h"             /* cc.h为自行添加的文件 */
 
 /** Memory map major version (memory maps with equal major version number are
  * compatible) */
