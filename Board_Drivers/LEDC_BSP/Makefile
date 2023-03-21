@@ -8,18 +8,18 @@ ARM_COPY :=$(USE_COMPILE)objcopy #换文件格式
 ARM_DUMP :=$(USE_COMPILE)objdump #反向汇编编译
 
 #编译头文件地址 -I
-INC_PATH := Bsp/CLCOK   \
-			Bsp/DELAY   \
-			Bsp/LED     \
+INC_PATH := Bsp/DELAY \
+			Bsp/LED \
 			SDK_LIB/inc \
-			SDK_LIB     \
+			SDK_LIB \
+			Bsp/CLCOK \
 			User
 #资源文件路径
-SRC_PATH := Bsp/CLCOK   \
-			Bsp/DELAY   \
-			Bsp/LED     \
+SRC_PATH := Bsp/DELAY \
+			Bsp/LED \
 			SDK_LIB/src \
-			User
+			User \
+			Bsp/CLCOK 
 OUT_PATH := Output
 
 INCLUDE :=$(patsubst %,-I %,$(INC_PATH))
